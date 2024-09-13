@@ -2,6 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.AddElasticsearchClient("elasticsearch");
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

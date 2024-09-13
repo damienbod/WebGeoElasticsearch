@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Elastic.Clients.Elasticsearch" Version="8.2.0-preview.1.24428.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Elastic.ServiceDefaults\Elastic.ServiceDefaults.csproj" />
   </ItemGroup>
 
