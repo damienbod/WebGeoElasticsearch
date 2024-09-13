@@ -1,8 +1,12 @@
+using WebGeoElasticsearch.ElasticsearchApi;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
 builder.AddElasticsearchClient("elasticsearch");
+
+builder.Services.AddScoped<SearchProvider>();
 
 builder.Services.AddControllersWithViews();
 
