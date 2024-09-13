@@ -1,1 +1,1 @@
-# WebGeoElasticsearch
+# Web Geo Elasticsearch
