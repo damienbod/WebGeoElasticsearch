@@ -1,5 +1,3 @@
-using Aspire.Hosting;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 var passwordElastic = builder.AddParameter("passwordElastic", secret: true);
