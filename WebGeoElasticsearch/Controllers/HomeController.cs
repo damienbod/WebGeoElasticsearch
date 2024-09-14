@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 using WebGeoElasticsearch.ElasticsearchApi;
 using WebGeoElasticsearch.Models;
 
@@ -21,7 +22,7 @@ public class HomeController : Controller
         var searchResult = _searchProvider.SearchForClosest(0, 7.44461, 46.94792);
         var mapModel = new MapModel
         {
-            //MapData = new JavaScriptSerializer().Serialize(searchResult),
+            MapData = JsonSerializer.Serialize(searchResult),
             // Bern	Lat 46.94792, Long 7.44461
             CenterLatitude = 46.94792,
             CenterLongitude = 7.44461,
@@ -36,7 +37,7 @@ public class HomeController : Controller
         var searchResult = _searchProvider.SearchForClosest(maxDistanceInMeter, centerLongitude, centerLatitude);
         var mapModel = new MapModel
         {
-            //MapData = new JavaScriptSerializer().Serialize(searchResult),
+            MapData = JsonSerializer.Serialize(searchResult),
             CenterLongitude = centerLongitude,
             CenterLatitude = centerLatitude,
             MaxDistanceInMeter = maxDistanceInMeter
