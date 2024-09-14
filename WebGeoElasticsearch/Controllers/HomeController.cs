@@ -21,9 +21,9 @@ public class HomeController : Controller
     {
         // TODO : Uncomment this line to add data to Elasticsearch
         // TODO move to service
-        await _searchProvider.AddMapDetailDataAsync();
+        // await _searchProvider.AddMapDetailDataAsync();
 
-        var searchResult = _searchProvider.SearchForClosestAsync(0, 7.44461, 46.94792);
+        var searchResult = await _searchProvider.SearchForClosestAsync(0, 7.44461, 46.94792);
         var mapModel = new MapModel
         {
             MapData = JsonSerializer.Serialize(searchResult),
@@ -36,9 +36,9 @@ public class HomeController : Controller
         return View(mapModel);
     }
 
-    public IActionResult Search(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
+    public async Task<IActionResult> SearchAsync(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
     {
-        var searchResult = _searchProvider.SearchForClosestAsync(maxDistanceInMeter, centerLongitude, centerLatitude);
+        var searchResult = await _searchProvider.SearchForClosestAsync(maxDistanceInMeter, centerLongitude, centerLatitude);
         var mapModel = new MapModel
         {
             MapData = JsonSerializer.Serialize(searchResult),

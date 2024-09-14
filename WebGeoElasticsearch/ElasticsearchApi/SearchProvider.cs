@@ -104,21 +104,23 @@ public class SearchProvider
         var searchRequest = new SearchRequest(IndexName)
         {
             Query = new MatchAllQuery{},
-            PostFilter = new GeoDistanceQuery
-            {
-                DistanceType = GeoDistanceType.Plane,
-                Field = "detailsCoordinates",
-                Distance = $"{maxDistanceInMeter}m",
-                Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
-                {
-                    Lat = centerLatitude,
-                    Lon = centerLongitude
-                })
-            },
+            //PostFilter = new GeoDistanceQuery
+            //{
+            //    DistanceType = GeoDistanceType.Plane,
+            //    Field = "detailsCoordinates",
+            //    Distance = $"{maxDistanceInMeter}m",
+            //    Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
+            //    {
+            //        Lat = centerLatitude,
+            //        Lon = centerLongitude
+            //    })
+            //},
             Sort = BuildGeoDistanceSort(centerLongitude, centerLatitude)
         };
 
-        _logger.LogInformation("SearchForClosestAsync: {SearchBody}", searchRequest.ToString());
+        searchRequest.ErrorTrace = true;
+
+        _logger.LogInformation("SearchForClosestAsync: {SearchBody}", searchRequest);
 
         var searchResponse = await _client.SearchAsync<MapDetail>(searchRequest);
 
