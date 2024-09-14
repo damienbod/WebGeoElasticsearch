@@ -21,7 +21,7 @@ public class HomeController : Controller
     {
         // TODO : Uncomment this line to add data to Elasticsearch
         // TODO move to service
-        //await _searchProvider.AddMapDetailDataAsync();
+        await _searchProvider.AddMapDetailDataAsync();
 
         var searchResult = _searchProvider.SearchForClosestAsync(0, 7.44461, 46.94792);
         var mapModel = new MapModel

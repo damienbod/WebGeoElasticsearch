@@ -1,4 +1,6 @@
 ﻿using Elastic.Clients.Elasticsearch;
+using Elastic.Clients.Elasticsearch.IndexManagement;
+using Elastic.Clients.Elasticsearch.Mapping;
 using Elastic.Clients.Elasticsearch.QueryDsl;
 using WebGeoElasticsearch.Models;
 
@@ -8,10 +10,12 @@ public class SearchProvider
 {
     private const string IndexName = "mapdetails";
     private readonly ElasticsearchClient _client;
+    private readonly ILogger<SearchProvider> _logger;
 
-    public SearchProvider(ElasticClientProvider elasticClientProvider)
+    public SearchProvider(ElasticClientProvider elasticClientProvider, ILogger<SearchProvider> logger)
     {
         _client = elasticClientProvider.GetClient();
+        _logger = logger;
     }
 
     public async Task AddMapDetailDataAsync()
@@ -42,6 +46,22 @@ public class SearchProvider
         {
             await _client.Indices.DeleteAsync(IndexName);
         }
+
+        var response1 = await _client.Indices.CreateAsync<MapDetail>(IndexName, c => c
+           .Mappings(map => map
+               .Properties(
+                   new Properties<MapDetail>()
+                   {
+                        { "details", new TextProperty() },
+                        { "detailsCoordinates", new GeoPointProperty() },
+                        { "detailsType", new TextProperty() },
+                        { "id", new TextProperty() },
+                        { "information", new TextProperty() },
+                        { "name", new TextProperty() }
+                   }
+               )
+           )
+        );
 
         var response = await _client.IndexAsync(dotNetGroup, IndexName, "1");
         response = await _client.IndexAsync(dieci, IndexName, "2");
@@ -86,7 +106,8 @@ public class SearchProvider
             Query = new MatchAllQuery{},
             PostFilter = new GeoDistanceQuery
             {
-                Field = "detailscoordinates",
+                DistanceType = GeoDistanceType.Plane,
+                Field = "detailsCoordinates",
                 Distance = $"{maxDistanceInMeter}m",
                 Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
                 {
@@ -97,8 +118,11 @@ public class SearchProvider
             Sort = BuildGeoDistanceSort(centerLongitude, centerLatitude)
         };
 
+        _logger.LogInformation("SearchForClosestAsync: {SearchBody}", searchRequest.ToString());
+
         var searchResponse = await _client.SearchAsync<MapDetail>(searchRequest);
 
+        
         return searchResponse.Documents.ToList();
     }
 
@@ -118,7 +142,7 @@ public class SearchProvider
         var sort = SortOptions.GeoDistance(
             new GeoDistanceSort 
             {
-                Field = new Field("detailscoordinates"),
+                Field = new Field("detailsCoordinates"),
                 Location = new List<GeoLocation>
                 { 
                     GeoLocation.LatitudeLongitude(new LatLonGeoLocation
