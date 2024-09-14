@@ -7,6 +7,7 @@ builder.AddServiceDefaults();
 builder.AddElasticsearchClient("elasticsearch");
 
 builder.Services.AddScoped<SearchProvider>();
+builder.Services.AddSingleton<ElasticClientProvider>();    
 
 builder.Services.AddControllersWithViews();
 

@@ -1,13 +1,17 @@
 ﻿using Elastic.Clients.Elasticsearch;
-using Elastic.Transport;
 using WebGeoElasticsearch.Models;
 
 namespace WebGeoElasticsearch.ElasticsearchApi;
 
 public class SearchProvider
 {
-    private const string IndexName = "mapdetails";  
+    private const string IndexName = "mapdetails";
+    private readonly ElasticsearchClient _client;
 
+    public SearchProvider(ElasticClientProvider elasticClientProvider)
+    {
+        _client = elasticClientProvider.GetClient();
+    }
     public async Task AddMapDetailDataAsync()
     {
         var dotNetGroup = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.47348, 46.95404]), Id = 1, Name = ".NET User Group Bern", Details = "http://www.dnug-bern.ch/", DetailsType = "Work" };
@@ -15,21 +19,16 @@ public class SearchProvider
         var babylonKoeniz = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.41635, 46.92737]), Id = 3, Name = "PIZZERIA BABYLON Köniz", Details = "http://www.pizza-babylon.ch/home-k.html", DetailsType = "Pizza" };
         var babylonOstermundigen = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.48256, 46.95578]), Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "http://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" };
 
-        var settings = new ElasticsearchClientSettings(new Uri("https://localhost:9200"))
-          .Authentication(new BasicAuthentication("elastic", "Password1!"));
-
-        var client = new ElasticsearchClient(settings);
-
-        var exist = await client.Indices.ExistsAsync(IndexName);
+        var exist = await _client.Indices.ExistsAsync(IndexName);
         if (exist.Exists)
         {
-            await client.Indices.DeleteAsync(IndexName);
+            await _client.Indices.DeleteAsync(IndexName);
         }
 
-        var response = await client.IndexAsync(dotNetGroup, IndexName, "1");
-        response = await client.IndexAsync(dieci, IndexName, "2");
-        response = await client.IndexAsync(babylonKoeniz, IndexName, "3");
-        response = await client.IndexAsync(babylonOstermundigen, IndexName, "4");
+        var response = await _client.IndexAsync(dotNetGroup, IndexName, "1");
+        response = await _client.IndexAsync(dieci, IndexName, "2");
+        response = await _client.IndexAsync(babylonKoeniz, IndexName, "3");
+        response = await _client.IndexAsync(babylonOstermundigen, IndexName, "4");
     }
 
     //{
