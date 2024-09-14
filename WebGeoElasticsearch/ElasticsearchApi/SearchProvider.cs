@@ -1,7 +1,5 @@
 ﻿using Elastic.Clients.Elasticsearch;
-using Elastic.Clients.Elasticsearch.IndexManagement;
 using Elastic.Clients.Elasticsearch.QueryDsl;
-using System.Drawing;
 using WebGeoElasticsearch.Models;
 
 namespace WebGeoElasticsearch.ElasticsearchApi;
@@ -79,46 +77,27 @@ public class SearchProvider
     //}
     public async Task<List<MapDetail>> SearchForClosestAsync(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
     {
+        if (maxDistanceInMeter == 0)
+        {
+            maxDistanceInMeter = 1000000;
+        }
         var searchRequest = new SearchRequest(IndexName)
         {
             Query = new MatchAllQuery{},
-            
+            PostFilter = new GeoDistanceQuery
+            {
+                Field = "detailscoordinates",
+                Distance = $"{maxDistanceInMeter}m",
+                Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
+                {
+                    Lat = centerLatitude,
+                    Lon = centerLongitude
+                })
+            },
             Sort = BuildGeoDistanceSort(centerLongitude, centerLatitude)
         };
 
         var searchResponse = await _client.SearchAsync<MapDetail>(searchRequest);
-
-
-        //if (maxDistanceInMeter == 0)
-        //{
-        //    maxDistanceInMeter = 1000000;
-        //}
-        //var search = new Search
-        //{
-        //    Query = new Query(
-        //        new Filtered(
-        //            new Filter(
-        //                new GeoDistanceFilter(
-        //                    "detailscoordinates",
-        //                    new GeoPoint(centerLongitude, centerLatitude),
-        //                    new DistanceUnitMeter(maxDistanceInMeter)
-        //                )
-        //            )
-        //        )
-        //        {
-        //            Query = new Query(new MatchAllQuery())
-        //        }
-        //    ),
-        //    Sort = new SortHolder(
-        //        new List<ISort>
-        //        {
-        //            new SortGeoDistance("detailscoordinates", DistanceUnitEnum.m, new GeoPoint(centerLongitude, centerLatitude))
-        //            {
-        //                Order = OrderEnum.asc
-        //            }
-        //        }
-        //    )
-        //};
 
         return searchResponse.Documents.ToList();
     }
