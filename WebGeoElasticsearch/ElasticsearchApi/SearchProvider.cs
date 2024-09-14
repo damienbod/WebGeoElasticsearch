@@ -1,4 +1,7 @@
 ﻿using Elastic.Clients.Elasticsearch;
+using Elastic.Clients.Elasticsearch.IndexManagement;
+using Elastic.Clients.Elasticsearch.QueryDsl;
+using System.Drawing;
 using WebGeoElasticsearch.Models;
 
 namespace WebGeoElasticsearch.ElasticsearchApi;
@@ -74,8 +77,18 @@ public class SearchProvider
     //	]
     //	}
     //}
-    public List<MapDetail> SearchForClosest(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
+    public async Task<List<MapDetail>> SearchForClosestAsync(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
     {
+        var searchRequest = new SearchRequest(IndexName)
+        {
+            Query = new MatchAllQuery{},
+            
+            Sort = BuildGeoDistanceSort(centerLongitude, centerLatitude)
+        };
+
+        var searchResponse = await _client.SearchAsync<MapDetail>(searchRequest);
+
+
         //if (maxDistanceInMeter == 0)
         //{
         //    maxDistanceInMeter = 1000000;
@@ -107,8 +120,40 @@ public class SearchProvider
         //    )
         //};
 
-        List<MapDetail> result = new();
-        
-        return result;
+        return searchResponse.Documents.ToList();
+    }
+
+    // "sort" : [
+    //		{
+    //			"_geo_distance" : {
+    //				"detailscoordinates" : [7.41148,46.9445],
+    //				"order" : "asc",
+    //				"unit" : "km"
+    //			}
+    //		}
+    //	]
+    private static List<SortOptions> BuildGeoDistanceSort(double centerLongitude, double centerLatitude)
+    {
+        var sorts = new List<SortOptions>();
+
+        var sort = SortOptions.GeoDistance(
+            new GeoDistanceSort 
+            {
+                Field = new Field("detailscoordinates"),
+                Location = new List<GeoLocation>
+                { 
+                    GeoLocation.LatitudeLongitude(new LatLonGeoLocation
+                    { 
+                        Lat = centerLatitude, Lon = centerLongitude
+                    })
+                },
+                Order = SortOrder.Asc,
+                Unit = DistanceUnit.Meters
+            }
+        );
+
+        sorts.Add(sort);
+
+        return sorts;
     }
 }

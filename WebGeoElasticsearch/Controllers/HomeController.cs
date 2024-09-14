@@ -23,7 +23,7 @@ public class HomeController : Controller
         // TODO move to service
         //await _searchProvider.AddMapDetailDataAsync();
 
-        var searchResult = _searchProvider.SearchForClosest(0, 7.44461, 46.94792);
+        var searchResult = _searchProvider.SearchForClosestAsync(0, 7.44461, 46.94792);
         var mapModel = new MapModel
         {
             MapData = JsonSerializer.Serialize(searchResult),
@@ -38,7 +38,7 @@ public class HomeController : Controller
 
     public IActionResult Search(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
     {
-        var searchResult = _searchProvider.SearchForClosest(maxDistanceInMeter, centerLongitude, centerLatitude);
+        var searchResult = _searchProvider.SearchForClosestAsync(maxDistanceInMeter, centerLongitude, centerLatitude);
         var mapModel = new MapModel
         {
             MapData = JsonSerializer.Serialize(searchResult),
