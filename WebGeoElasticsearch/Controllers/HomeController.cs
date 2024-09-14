@@ -17,8 +17,12 @@ public class HomeController : Controller
         _searchProvider = searchProvider;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> IndexAsync()
     {
+        // TODO : Uncomment this line to add data to Elasticsearch
+        // TODO move to service
+        //await _searchProvider.AddMapDetailDataAsync();
+
         var searchResult = _searchProvider.SearchForClosest(0, 7.44461, 46.94792);
         var mapModel = new MapModel
         {

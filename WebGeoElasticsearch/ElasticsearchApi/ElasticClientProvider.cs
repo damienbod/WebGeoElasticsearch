@@ -5,12 +5,13 @@ namespace WebGeoElasticsearch.ElasticsearchApi;
 
 public class ElasticClientProvider
 {
-    private readonly ElasticsearchClient? _client;
+    private readonly ElasticsearchClient? _client = null;
 
     public ElasticClientProvider()
     {
-        if (_client != null)
+        if (_client == null)
         {
+            // TODO read from configuration
             var settings = new ElasticsearchClientSettings(new Uri("https://localhost:9200"))
                 .Authentication(new BasicAuthentication("elastic", "Password1!"));
 

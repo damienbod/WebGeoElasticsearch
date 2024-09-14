@@ -12,12 +12,29 @@ public class SearchProvider
     {
         _client = elasticClientProvider.GetClient();
     }
+
     public async Task AddMapDetailDataAsync()
     {
-        var dotNetGroup = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.47348, 46.95404]), Id = 1, Name = ".NET User Group Bern", Details = "http://www.dnug-bern.ch/", DetailsType = "Work" };
-        var dieci = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.41148, 46.94450]), Id = 2, Name = "Dieci Pizzakurier Bern", Details = "http://www.dieci.ch", DetailsType = "Pizza" };
-        var babylonKoeniz = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.41635, 46.92737]), Id = 3, Name = "PIZZERIA BABYLON Köniz", Details = "http://www.pizza-babylon.ch/home-k.html", DetailsType = "Pizza" };
-        var babylonOstermundigen = new MapDetail { DetailsCoordinates = GeoLocation.Coordinates([7.48256, 46.95578]), Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "http://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" };
+        var dotNetGroup = new MapDetail 
+        { 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude( new LatLonGeoLocation { Lat = 7.47348, Lon = 46.95404}), 
+            Id = 1, Name = ".NET User Group Bern", Details = "http://www.dnug-bern.ch/", DetailsType = "Work" 
+        };
+        var dieci = new MapDetail 
+        { 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lat = 7.41148, Lon = 46.94450 }), 
+            Id = 2, Name = "Dieci Pizzakurier Bern", Details = "http://www.dieci.ch", DetailsType = "Pizza" 
+        };
+        var babylonKoeniz = new MapDetail 
+        { 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lat = 7.41635, Lon = 46.92737 }), 
+            Id = 3, Name = "PIZZERIA BABYLON Köniz", Details = "http://www.pizza-babylon.ch/home-k.html", DetailsType = "Pizza" 
+        };
+        var babylonOstermundigen = new MapDetail 
+        { 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lat = 7.48256, Lon = 46.95578 }), 
+            Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "http://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" 
+        };
 
         var exist = await _client.Indices.ExistsAsync(IndexName);
         if (exist.Exists)
