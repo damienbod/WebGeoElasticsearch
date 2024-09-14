@@ -1,4 +1,5 @@
-﻿
+﻿using Elastic.Clients.Elasticsearch;
+
 namespace WebGeoElasticsearch.Models;
 
 public class MapDetail
@@ -9,6 +10,5 @@ public class MapDetail
     public string Information { get; set; } = string.Empty;
     public string DetailsType { get; set; } = string.Empty;
 
-    //[ElasticsearchGeoPoint]
-	//public GeoPoint DetailsCoordinates { get; set; }
+    public GeoLocation DetailsCoordinates { get; set; } = GeoLocation.Coordinates([7.47348, 46.95404]);
 }
