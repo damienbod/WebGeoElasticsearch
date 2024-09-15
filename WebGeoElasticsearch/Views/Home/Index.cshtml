@@ -63,7 +63,13 @@
 
             //alert("Lat: " + entry.DetailsCoordinates.lat + "Lon: " + entry.DetailsCoordinates.lon);
             if (first) {
-                var marker = L.marker([entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat]).addTo(map);
+
+                var yourPositionIcon = L.icon({
+                    iconUrl: 'yourposition.png',
+                });
+
+                var marker = L.marker([entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
+                {icon: yourPositionIcon}).addTo(map);
 
                 // var marker = new google.maps.Marker({
                 //     position: new google.maps.LatLng(array[1], array[0]),
