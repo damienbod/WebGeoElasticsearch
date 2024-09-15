@@ -59,8 +59,21 @@
 
         //var marker = L.marker([46.94792, 7.44461]).addTo(map);
 
+        var ortIcon = L.icon({
+            iconUrl: 'ort.png',
+        });
+
+        var homemarker = L.marker(
+            [$("#centerLatitude").val(), $("#centerLongitude").val()],
+            {icon: ortIcon}, 
+            {draggable: true}
+        ).addTo(map);
+
         function onMapClick(e) {
-            alert("You clicked the map at " + e.latlng);
+            homemarker.setLatLng(e.latlng);
+            alert("You clicked the map at " + homemarker.getLatLng().lng + " , "  + homemarker.getLatLng().lat);
+             $("#centerLongitude").val(homemarker.getLatLng().lng.toFixed(3));
+             $("#centerLatitude").val(homemarker.getLatLng().lat.toFixed(3));
         }
 
         map.on('click', onMapClick);
@@ -81,109 +94,25 @@
                 });
 
                 var marker = L.marker(
-                    [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
-                    {icon: yourPositionIcon}
-                ).bindPopup(titleString).addTo(map);
-
-                marker;
-
-                // var marker = new google.maps.Marker({
-                //     position: new google.maps.LatLng(array[1], array[0]),
-                //     html: htmlString,
-                //     icon: "https://localhost:7275/yourposition.png"
-                // });
+                        [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
+                        {icon: yourPositionIcon})
+                    .bindPopup(titleString)
+                    .addTo(map);
 
                 first = false;
             } else {
-                var marker = L.marker([entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat])
+                var marker = L.marker(
+                        [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat])
                     .bindPopup(titleString)
                     .addTo(map);
             }
         });
 
-        var ortIcon = L.icon({
-            iconUrl: 'ort.png',
-        });
-
-        var homemarker = L.marker(
-            [$("#centerLatitude").val(), $("#centerLongitude").val()],
-            {icon: ortIcon}, 
-            {draggable: true}
-        ).addTo(map);
-
-
-        // var homemarker = new google.maps.Marker({
-
-        //     position: new google.maps.LatLng($("#centerLatitude").val(), $("#centerLongitude").val()),
-        //     html: "YOU",
-        //     draggable: true,
-        //     icon: "https:localhost:7275/ort.png"
-        //});
-
-        // var map;
-        // var mgr;
-
-        // function initialize() {
-        //     var myOptions = {
-        //         zoom: 13,
-        //         center: new google.maps.LatLng(46.94792, 7.44461),
-        //         mapTypeId: google.maps.MapTypeId.ROADMAP
-        //     };
-        //     map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
-       
-        //     var infoWindow = new google.maps.InfoWindow({ content: "contents" });
-        //     google.maps.event.addListener(mgr, 'loaded', function() {
-
-        //         var modelData = $.parseJSON($("#mapdata").val());
-        //         var first = true;
-        //         $.each(modelData, function(entryIndex, entry) {
-        //             alert("Data" + entry.DetailsCoordinates + ", " + entry.Details);
-
-        //             var htmlString = "<a href=\"" + entry.Details + "\">" + entry.Name + "</a>";
-        //             var coor = entry.DetailsCoordinates.toString();
-        //             var array = coor.split(',');
-
-        //             // alert("Lat" + array[1] + "Long" + array[0]);
-        //             if (first) {
-        //                 const marker = new google.maps.marker.AdvancedMarkerElement({
-        //                     map,
-        //                     position: {lat: array[1], lng: array[0]},
-        //                     html: htmlString,
-        //                     icon: "https://localhost:7275/yourposition.png"
-        //                   });
-
-        //                 // var marker = new google.maps.Marker({
-        //                 //     position: new google.maps.LatLng(array[1], array[0]),
-        //                 //     html: htmlString,
-        //                 //     icon: "https://localhost:7275/yourposition.png"
-        //                 // });
-
-        //                 first = false;
-        //             } else {
-        //                 var marker = new google.maps.Marker({
-        //                     position: new google.maps.LatLng(array[1], array[0]),
-        //                     html: htmlString
-        //                 });
-        //             }
 
         //             google.maps.event.addListener(marker, "click", function() {
         //                 infoWindow.setContent(this.html);
         //                 infoWindow.open(map, this);
         //             });
-
-        //             mgr.addMarker(marker, 0);
-
-        //         });
-
-        //         // alert('homemarker: ' + $("#centerLatitude").val() + ' Current Lng: ' + $("#centerLongitude").val());
-
-        //         var homemarker = new google.maps.Marker({
-
-        //             position: new google.maps.LatLng($("#centerLatitude").val(), $("#centerLongitude").val()),
-        //             html: "YOU",
-        //             draggable: true,
-        //             icon: "https://localhost:7275/ort.png"
-        //         });
 
         //         google.maps.event.addListener(homemarker, 'dragend', function(evt) {
         //             // alert('Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3));
@@ -191,12 +120,6 @@
         //             $("#centerLatitude").val(evt.latLng.lat().toFixed(3));
         //         });
 
-        //         mgr.addMarker(homemarker, 0);
 
-        //         mgr.refresh();
-        //     });
-        // }
-
-        // google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 }
