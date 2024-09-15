@@ -95,8 +95,10 @@ public class SearchProvider
     //	]
     //	}
     //}
-    public async Task<List<MapDetail>> SearchForClosestAsync(uint maxDistanceInMeter, double centerLongitude, double centerLatitude)
+    public async Task<List<MapDetail>> SearchForClosestAsync(uint maxDistanceInMeter, double centerLatitude, double centerLongitude)
     {
+        // Bern	Lat 46.94792, Long 7.44461
+        // NOTE LON and LAT are backwards in elasticsearch
         if (maxDistanceInMeter == 0)
         {
             maxDistanceInMeter = 1000000;
@@ -115,7 +117,7 @@ public class SearchProvider
                     Lat = centerLongitude
                 })
             },
-            Sort = BuildGeoDistanceSort(centerLongitude, centerLatitude)
+            Sort = BuildGeoDistanceSort(centerLatitude, centerLongitude)
         };
 
         searchRequest.ErrorTrace = true;
@@ -137,8 +139,9 @@ public class SearchProvider
     //			}
     //		}
     //	]
-    private static List<SortOptions> BuildGeoDistanceSort(double centerLongitude, double centerLatitude)
+    private static List<SortOptions> BuildGeoDistanceSort(double centerLatitude, double centerLongitude)
     {
+        // NOTE LON and LAT are backwards in elasticsearch
         var sorts = new List<SortOptions>();
 
         var sort = SortOptions.GeoDistance(
@@ -148,8 +151,9 @@ public class SearchProvider
                 Location = new List<GeoLocation>
                 { 
                     GeoLocation.LatitudeLongitude(new LatLonGeoLocation
-                    { 
-                        Lat = centerLatitude, Lon = centerLongitude
+                    {
+                        Lon = centerLatitude,
+                        Lat = centerLongitude
                     })
                 },
                 Order = SortOrder.Asc,
