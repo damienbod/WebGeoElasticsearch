@@ -49,8 +49,8 @@ public class SearchProvider
         };
         var dotnetUserGroupLuzern = new MapDetail
         {
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.43694 , Lat = 46.94811 }),
-            Id = 7,
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.3122, Lat = 47.0635 }),
+            Id = 6,
             Name = ".NET User Group Luzern",
             Details = "https://www.meetup.com/NET-Usergroup-Zentralschweiz",
             DetailsType = "Work"
@@ -58,17 +58,25 @@ public class SearchProvider
         var dotnetUserGroupZurich = new MapDetail
         {
             DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.56464 , Lat = 47.44978 }),
-            Id = 8,
+            Id = 7,
             Name = ".NET User Group Zurich",
             Details = "https://www.meetup.com/dotnet-zurich/",
             DetailsType = "Work"
         };
         var dotnetUserGroupGeneva= new MapDetail
         {
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.48256, Lat = 46.95578 }),
-            Id = 9,
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 6.13532 , Lat = 46.20922 }),
+            Id = 8,
             Name = ".NET User Group Geneva",
             Details = "https://www.meetup.com/Geneva-NET-User-Group",
+            DetailsType = "Work"
+        };
+        var dotnetUserGroupBasel = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.31228, Lat = 47.06350 }),
+            Id = 9,
+            Name = ".NET User Group Basel",
+            Details = "https://www.meetup.com/Basel-NET-User-Group/",
             DetailsType = "Work"
         };
 
@@ -98,6 +106,11 @@ public class SearchProvider
         response = await _client.IndexAsync(dieci, IndexName, "2");
         response = await _client.IndexAsync(babylonKoeniz, IndexName, "3");
         response = await _client.IndexAsync(babylonOstermundigen, IndexName, "4");
+        response = await _client.IndexAsync(azureUserGroupBern, IndexName, "5");
+        response = await _client.IndexAsync(dotnetUserGroupLuzern, IndexName, "6");
+        response = await _client.IndexAsync(dotnetUserGroupZurich, IndexName, "7");
+        response = await _client.IndexAsync(dotnetUserGroupGeneva, IndexName, "8");
+        response = await _client.IndexAsync(dotnetUserGroupBasel, IndexName, "9");
     }
 
     //{
