@@ -103,18 +103,18 @@ public class SearchProvider
         }
         var searchRequest = new SearchRequest(IndexName)
         {
-            Query = new MatchAllQuery{},
-            //PostFilter = new GeoDistanceQuery
-            //{
-            //    DistanceType = GeoDistanceType.Plane,
-            //    Field = "detailsCoordinates",
-            //    Distance = $"{maxDistanceInMeter}m",
-            //    Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
-            //    {
-            //        Lat = centerLatitude,
-            //        Lon = centerLongitude
-            //    })
-            //},
+            // Query = new MatchAllQuery{},
+            Query = new GeoDistanceQuery
+            {
+                DistanceType = GeoDistanceType.Plane,
+                Field = "detailsCoordinates",
+                Distance = $"{maxDistanceInMeter}m",
+                Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
+                {
+                    Lon = centerLatitude,
+                    Lat = centerLongitude
+                })
+            },
             Sort = BuildGeoDistanceSort(centerLongitude, centerLatitude)
         };
 
