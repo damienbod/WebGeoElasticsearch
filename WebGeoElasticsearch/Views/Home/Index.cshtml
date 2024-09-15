@@ -45,7 +45,6 @@
 
     <script language="javascript" type="text/javascript">
 
-        //var map = L.map('map').setView([46.94792, 7.44461], 13);
         var map = L.map('map', {
             center: [46.94792, 7.44461],
             zoom: 13,
@@ -57,10 +56,8 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        //var marker = L.marker([46.94792, 7.44461]).addTo(map);
-
         var ortIcon = L.icon({
-            iconUrl: 'ort.png',
+            iconUrl: 'https://localhost:7275/ort.png',
         });
 
         var homemarker = L.marker(
@@ -71,14 +68,12 @@
 
         function onMapClick(e) {
             homemarker.setLatLng(e.latlng);
-            alert("You clicked the map at " + homemarker.getLatLng().lng + " , "  + homemarker.getLatLng().lat);
+            //alert("You clicked the map at " + homemarker.getLatLng().lng + " , "  + homemarker.getLatLng().lat);
              $("#centerLongitude").val(homemarker.getLatLng().lng.toFixed(3));
              $("#centerLatitude").val(homemarker.getLatLng().lat.toFixed(3));
         }
 
         map.on('click', onMapClick);
-
-        ///////////////
 
         var modelData = $.parseJSON($("#mapdata").val());
         var first = true;
@@ -90,7 +85,7 @@
             if (first) {
 
                 var yourPositionIcon = L.icon({
-                    iconUrl: 'yourposition.png',
+                    iconUrl: 'https://localhost:7275/yourposition.png',
                 });
 
                 var marker = L.marker(
@@ -107,19 +102,6 @@
                     .addTo(map);
             }
         });
-
-
-        //             google.maps.event.addListener(marker, "click", function() {
-        //                 infoWindow.setContent(this.html);
-        //                 infoWindow.open(map, this);
-        //             });
-
-        //         google.maps.event.addListener(homemarker, 'dragend', function(evt) {
-        //             // alert('Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3));
-        //             $("#centerLongitude").val(evt.latLng.lng().toFixed(3));
-        //             $("#centerLatitude").val(evt.latLng.lat().toFixed(3));
-        //         });
-
 
     </script>
 }
