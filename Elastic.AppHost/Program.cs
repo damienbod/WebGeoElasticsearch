@@ -7,6 +7,7 @@ var elasticsearch = builder.AddElasticsearch("elasticsearch", password: password
     .RunElasticWithHttpsDevCertificate(port: 9200);
 
 builder.AddProject<Projects.WebGeoElasticsearch>("webgeoelasticsearch")
+    .WithExternalHttpEndpoints()
     .WithReference(elasticsearch);
 
 builder.Build().Run();
