@@ -19,29 +19,41 @@ public class SearchProvider
 
     public async Task AddMapDetailDataAsync()
     {
-        var dotNetGroup = new MapDetail 
-        { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude( new LatLonGeoLocation { Lon = 7.47348, Lat = 46.95404}), 
-            Id = 1, Name = ".NET User Group Bern", Details = "https://www.dnug-bern.ch/", DetailsType = "Work" 
+        var dotNetGroup = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.47348, Lat = 46.95404 }),
+            Id = 1,
+            Name = ".NET User Group Bern",
+            Details = "https://www.dnug-bern.ch/",
+            DetailsType = "Work"
         };
-        var dieci = new MapDetail 
-        { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.41148, Lat = 46.94450 }), 
-            Id = 2, Name = "Dieci Pizzakurier Bern", Details = "https://www.dieci.ch", DetailsType = "Pizza" 
+        var dieci = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.41148, Lat = 46.94450 }),
+            Id = 2,
+            Name = "Dieci Pizzakurier Bern",
+            Details = "https://www.dieci.ch",
+            DetailsType = "Pizza"
         };
-        var babylonKoeniz = new MapDetail 
-        { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.41635, Lat = 46.92737 }), 
-            Id = 3, Name = "PIZZERIA BABYLON Köniz", Details = "https://www.pizza-babylon.ch/home-k.html", DetailsType = "Pizza" 
+        var babylonKoeniz = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.41635, Lat = 46.92737 }),
+            Id = 3,
+            Name = "PIZZERIA BABYLON Köniz",
+            Details = "https://www.pizza-babylon.ch/home-k.html",
+            DetailsType = "Pizza"
         };
-        var babylonOstermundigen = new MapDetail 
-        { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.48256, Lat = 46.95578 }), 
-            Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "https://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" 
+        var babylonOstermundigen = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.48256, Lat = 46.95578 }),
+            Id = 4,
+            Name = "PIZZERIA BABYLON Ostermundigen",
+            Details = "https://www.pizza-babylon.ch/home-o.html",
+            DetailsType = "Pizza"
         };
         var azureUserGroupBern = new MapDetail
         {
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.43694 , Lat= 46.94811}),
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.43694, Lat = 46.94811 }),
             Id = 5,
             Name = "Azure User Group Bern",
             Details = "https://www.meetup.com/azure-cloud-bern-user-group/",
@@ -57,15 +69,15 @@ public class SearchProvider
         };
         var dotnetUserGroupZurich = new MapDetail
         {
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.56464 , Lat = 47.44978 }),
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.56464, Lat = 47.44978 }),
             Id = 7,
             Name = ".NET User Group Zurich",
             Details = "https://www.meetup.com/dotnet-zurich/",
             DetailsType = "Work"
         };
-        var dotnetUserGroupGeneva= new MapDetail
+        var dotnetUserGroupGeneva = new MapDetail
         {
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 6.13532 , Lat = 46.20922 }),
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 6.13532, Lat = 46.20922 }),
             Id = 8,
             Name = ".NET User Group Geneva",
             Details = "https://www.meetup.com/Geneva-NET-User-Group",
@@ -73,7 +85,7 @@ public class SearchProvider
         };
         var dotnetUserGroupBasel = new MapDetail
         {
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.31228, Lat = 47.06350 }),
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.59252, Lat = 47.55186 }),
             Id = 9,
             Name = ".NET User Group Basel",
             Details = "https://www.meetup.com/Basel-NET-User-Group/",
@@ -169,7 +181,7 @@ public class SearchProvider
 
         var searchResponse = await _client.SearchAsync<MapDetail>(searchRequest);
 
-        
+
         return searchResponse.Documents.ToList();
     }
 
@@ -187,11 +199,11 @@ public class SearchProvider
         var sorts = new List<SortOptions>();
 
         var sort = SortOptions.GeoDistance(
-            new GeoDistanceSort 
+            new GeoDistanceSort
             {
                 Field = new Field("detailsCoordinates"),
                 Location = new List<GeoLocation>
-                { 
+                {
                     GeoLocation.LatitudeLongitude(new LatLonGeoLocation
                     {
                         Lat = centerLatitude,
