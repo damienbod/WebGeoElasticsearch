@@ -59,7 +59,7 @@
         var first = true;
         $.each(modelData, function(entryIndex, entry) {
 
-            var htmlString = "<a href=\"" + entry.Details + "\">" + entry.Name + "</a>";
+            var titleString = "<a href=\"" + entry.Details + "\">" + entry.Name + "</a>";
 
             //alert("Lat: " + entry.DetailsCoordinates.lat + "Lon: " + entry.DetailsCoordinates.lon);
             if (first) {
@@ -68,8 +68,11 @@
                     iconUrl: 'yourposition.png',
                 });
 
-                var marker = L.marker([entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
-                {icon: yourPositionIcon}).addTo(map);
+                var marker = L.marker(
+                    [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
+                    {icon: yourPositionIcon},
+                    {title: titleString}
+                ).addTo(map);
 
                 // var marker = new google.maps.Marker({
                 //     position: new google.maps.LatLng(array[1], array[0]),
@@ -83,7 +86,26 @@
             }
         });
 
+        alert('homemarker: ' + $("#centerLatitude").val() + ' Current Lng: ' + $("#centerLongitude").val());
 
+        var ortIcon = L.icon({
+            iconUrl: 'ort.png',
+        });
+
+        var homemarker = L.marker(
+            [$("#centerLatitude").val(), $("#centerLongitude").val()],
+            {icon: ortIcon}, 
+            {draggable: true}
+        ).addTo(map);
+
+
+        // var homemarker = new google.maps.Marker({
+
+        //     position: new google.maps.LatLng($("#centerLatitude").val(), $("#centerLongitude").val()),
+        //     html: "YOU",
+        //     draggable: true,
+        //     icon: "https:localhost:7275/ort.png"
+        //});
 
         // var map;
         // var mgr;
