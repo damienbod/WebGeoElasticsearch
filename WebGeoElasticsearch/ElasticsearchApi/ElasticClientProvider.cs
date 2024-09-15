@@ -7,13 +7,13 @@ public class ElasticClientProvider
 {
     private readonly ElasticsearchClient? _client = null;
 
-    public ElasticClientProvider()
+    public ElasticClientProvider(IConfiguration configuration)
     {
         if (_client == null)
         {
-            // TODO read from configuration
-            var settings = new ElasticsearchClientSettings(new Uri("https://localhost:9200"))
-                .Authentication(new BasicAuthentication("elastic", "Password1!"));
+            var settings = new ElasticsearchClientSettings(new Uri(configuration["ElasticsearchUrl"]!))
+                .Authentication(new BasicAuthentication(configuration["ElasticsearchUserName"]!, 
+                    configuration["ElasticsearchPassword"]!));
 
             _client = new ElasticsearchClient(settings);
         }
