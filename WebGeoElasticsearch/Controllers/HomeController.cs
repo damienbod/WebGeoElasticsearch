@@ -19,10 +19,6 @@ public class HomeController : Controller
 
     public async Task<IActionResult> IndexAsync()
     {
-        // TODO : Uncomment this line to add data to Elasticsearch
-        // TODO move to service
-        // await _searchProvider.AddMapDetailDataAsync();
-
         var searchResult = await _searchProvider.SearchForClosestAsync(0, 46.94792, 7.44461);
         var mapModel = new MapModel
         {
@@ -48,6 +44,18 @@ public class HomeController : Controller
         };
 
         return View("Index", mapModel);
+    }
+
+    public IActionResult ReIndex()
+    {
+        return View();
+    }
+
+    public async Task<IActionResult> CreateIndex()
+    {
+        await _searchProvider.AddMapDetailDataAsync();
+
+        return View("ReIndex");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
