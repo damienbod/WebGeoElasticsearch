@@ -6,30 +6,19 @@
 
 @using (Html.BeginForm("Search", "Home"))
 {
-    <fieldset class="form">
-        <legend>SEARCH for closest document in the search engine using geo distance</legend>
-        <table width="800">
-            <tr>
-                <th></th>
-            </tr>
-            <tr></tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Search for closest: " style="width: 300px">
-                </td>
-                <td>
-                    <input type="hidden" value="@Model.CenterLatitude" id="centerLatitude" name="centerLatitude" />
-                    <input type="hidden" value="@Model.CenterLongitude" id="centerLongitude" name="centerLongitude" />
-                </td>
-                <td>
-                    <p style="width: 300px">Max distance in meter:</p>
-                    <input class="form-control" id="maxDistanceInMeter" name="maxDistanceInMeter" type="text" title="" value="@Model.MaxDistanceInMeter" style="width: 200px" />
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-
+        <form>
+            <legend>Search for closest document in the search engine using geo distance</legend>
+            <div class="mb-3">
+                <label for="maxDistanceInMeter" class="form-label">Max distance in meter</label>
+                <input class="form-control" id="maxDistanceInMeter" name="maxDistanceInMeter" type="text" value="@Model.MaxDistanceInMeter"  style="width: 200px"/>
+            </div>
+            <input type="hidden" value="@Model.CenterLatitude" id="centerLatitude" name="centerLatitude" />
+            <input type="hidden" value="@Model.CenterLongitude" id="centerLongitude" name="centerLongitude" />
+            <button type="submit" class="btn btn-primary">Search for closest</button>
+        </form>
 }
+
+<br />
 
 <div class="row">
     @*Bern	Lat 46.94792, Long 7.44461 *@
