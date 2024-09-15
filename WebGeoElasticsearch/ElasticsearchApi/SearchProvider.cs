@@ -39,6 +39,38 @@ public class SearchProvider
             DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.48256, Lat = 46.95578 }), 
             Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "https://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" 
         };
+        var azureUserGroupBern = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.43694 , Lat= 46.94811}),
+            Id = 5,
+            Name = "Azure User Group Bern",
+            Details = "https://www.meetup.com/azure-cloud-bern-user-group/",
+            DetailsType = "Work"
+        };
+        var dotnetUserGroupLuzern = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.43694 , Lat = 46.94811 }),
+            Id = 7,
+            Name = ".NET User Group Luzern",
+            Details = "https://www.meetup.com/NET-Usergroup-Zentralschweiz",
+            DetailsType = "Work"
+        };
+        var dotnetUserGroupZurich = new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 8.56464 , Lat = 47.44978 }),
+            Id = 8,
+            Name = ".NET User Group Zurich",
+            Details = "https://www.meetup.com/dotnet-zurich/",
+            DetailsType = "Work"
+        };
+        var dotnetUserGroupGeneva= new MapDetail
+        {
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.48256, Lat = 46.95578 }),
+            Id = 9,
+            Name = ".NET User Group Geneva",
+            Details = "https://www.meetup.com/Geneva-NET-User-Group",
+            DetailsType = "Work"
+        };
 
         var exist = await _client.Indices.ExistsAsync(IndexName);
         if (exist.Exists)
