@@ -48,7 +48,7 @@
         var map = L.map('map', {
             center: [46.94792, 7.44461],
             zoom: 13,
-            dragging: false
+            //dragging: false
         });
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -86,6 +86,9 @@
 
                 var yourPositionIcon = L.icon({
                     iconUrl: 'https://localhost:7275/yourposition.png',
+                    iconSize: [38, 55],
+                    iconAnchor: [22, 54],
+                    popupAnchor: [-3, -76],
                 });
 
                 console.info("lon: "+ entry.DetailsCoordinates.lon + " lat:" + entry.DetailsCoordinates.lat + " " + entry.Name);
