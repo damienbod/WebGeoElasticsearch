@@ -1,5 +1,4 @@
 ﻿using Elastic.Clients.Elasticsearch;
-using Elastic.Clients.Elasticsearch.IndexManagement;
 using Elastic.Clients.Elasticsearch.Mapping;
 using Elastic.Clients.Elasticsearch.QueryDsl;
 using WebGeoElasticsearch.Models;
@@ -22,23 +21,23 @@ public class SearchProvider
     {
         var dotNetGroup = new MapDetail 
         { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude( new LatLonGeoLocation { Lat = 7.47348, Lon = 46.95404}), 
-            Id = 1, Name = ".NET User Group Bern", Details = "http://www.dnug-bern.ch/", DetailsType = "Work" 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude( new LatLonGeoLocation { Lon = 7.47348, Lat = 46.95404}), 
+            Id = 1, Name = ".NET User Group Bern", Details = "https://www.dnug-bern.ch/", DetailsType = "Work" 
         };
         var dieci = new MapDetail 
         { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lat = 7.41148, Lon = 46.94450 }), 
-            Id = 2, Name = "Dieci Pizzakurier Bern", Details = "http://www.dieci.ch", DetailsType = "Pizza" 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.41148, Lat = 46.94450 }), 
+            Id = 2, Name = "Dieci Pizzakurier Bern", Details = "https://www.dieci.ch", DetailsType = "Pizza" 
         };
         var babylonKoeniz = new MapDetail 
         { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lat = 7.41635, Lon = 46.92737 }), 
-            Id = 3, Name = "PIZZERIA BABYLON Köniz", Details = "http://www.pizza-babylon.ch/home-k.html", DetailsType = "Pizza" 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.41635, Lat = 46.92737 }), 
+            Id = 3, Name = "PIZZERIA BABYLON Köniz", Details = "https://www.pizza-babylon.ch/home-k.html", DetailsType = "Pizza" 
         };
         var babylonOstermundigen = new MapDetail 
         { 
-            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lat = 7.48256, Lon = 46.95578 }), 
-            Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "http://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" 
+            DetailsCoordinates = GeoLocation.LatitudeLongitude(new LatLonGeoLocation { Lon = 7.48256, Lat = 46.95578 }), 
+            Id = 4, Name = "PIZZERIA BABYLON Ostermundigen", Details = "https://www.pizza-babylon.ch/home-o.html", DetailsType = "Pizza" 
         };
 
         var exist = await _client.Indices.ExistsAsync(IndexName);
@@ -98,7 +97,6 @@ public class SearchProvider
     public async Task<List<MapDetail>> SearchForClosestAsync(uint maxDistanceInMeter, double centerLatitude, double centerLongitude)
     {
         // Bern	Lat 46.94792, Long 7.44461
-        // NOTE LON and LAT are backwards in elasticsearch
         if (maxDistanceInMeter == 0)
         {
             maxDistanceInMeter = 1000000;
@@ -113,8 +111,8 @@ public class SearchProvider
                 Distance = $"{maxDistanceInMeter}m",
                 Location = GeoLocation.LatitudeLongitude(new LatLonGeoLocation
                 {
-                    Lon = centerLatitude,
-                    Lat = centerLongitude
+                    Lat = centerLatitude,
+                    Lon = centerLongitude
                 })
             },
             Sort = BuildGeoDistanceSort(centerLatitude, centerLongitude)
@@ -141,7 +139,6 @@ public class SearchProvider
     //	]
     private static List<SortOptions> BuildGeoDistanceSort(double centerLatitude, double centerLongitude)
     {
-        // NOTE LON and LAT are backwards in elasticsearch
         var sorts = new List<SortOptions>();
 
         var sort = SortOptions.GeoDistance(
@@ -152,8 +149,8 @@ public class SearchProvider
                 { 
                     GeoLocation.LatitudeLongitude(new LatLonGeoLocation
                     {
-                        Lon = centerLatitude,
-                        Lat = centerLongitude
+                        Lat = centerLatitude,
+                        Lon = centerLongitude
                     })
                 },
                 Order = SortOrder.Asc,

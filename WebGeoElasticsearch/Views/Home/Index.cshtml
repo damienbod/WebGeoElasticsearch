@@ -68,7 +68,7 @@
 
         function onMapClick(e) {
             homemarker.setLatLng(e.latlng);
-            //alert("You clicked the map at " + homemarker.getLatLng().lat + " , "  + homemarker.getLatLng().lng);
+            console.info("Clicked map at: lon: " + homemarker.getLatLng().lng + " , lat:"  + homemarker.getLatLng().lat);
             $("#centerLatitude").val(homemarker.getLatLng().lat.toFixed(5));
              $("#centerLongitude").val(homemarker.getLatLng().lng.toFixed(5));
              
@@ -82,23 +82,25 @@
 
             var titleString = entry.Name + "\n" + entry.Details;
 
-            //alert("Lat: " + entry.DetailsCoordinates.lat + "Lon: " + entry.DetailsCoordinates.lon);
             if (first) {
 
                 var yourPositionIcon = L.icon({
                     iconUrl: 'https://localhost:7275/yourposition.png',
                 });
 
+                console.info("lon: "+ entry.DetailsCoordinates.lon + " lat:" + entry.DetailsCoordinates.lat + " " + entry.Name);
+
                 var marker = L.marker(
-                        [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
+                        [entry.DetailsCoordinates.lat, entry.DetailsCoordinates.lon],
                         {icon: yourPositionIcon})
                     .bindPopup(titleString)
                     .addTo(map);
 
                 first = false;
             } else {
+                console.info("lon: "+ entry.DetailsCoordinates.lon + " lat:" + entry.DetailsCoordinates.lat + " " + entry.Name);
                 var marker = L.marker(
-                        [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat])
+                        [entry.DetailsCoordinates.lat, entry.DetailsCoordinates.lon])
                     .bindPopup(titleString)
                     .addTo(map);
             }
