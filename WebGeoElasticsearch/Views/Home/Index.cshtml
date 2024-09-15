@@ -23,7 +23,7 @@
                 </td>
                 <td>
                     <p style="width: 300px">Max distance in meter:</p>
-                    <input id="maxDistanceInMeter" name="maxDistanceInMeter" type="text" title="" value="@Model.MaxDistanceInMeter" style="width: 200px" />
+                    <input class="form-control" id="maxDistanceInMeter" name="maxDistanceInMeter" type="text" title="" value="@Model.MaxDistanceInMeter" style="width: 200px" />
                 </td>
             </tr>
         </table>
@@ -69,8 +69,8 @@
         function onMapClick(e) {
             homemarker.setLatLng(e.latlng);
             //alert("You clicked the map at " + homemarker.getLatLng().lat + " , "  + homemarker.getLatLng().lng);
-            $("#centerLatitude").val(homemarker.getLatLng().lat.toFixed(3));
-             $("#centerLongitude").val(homemarker.getLatLng().lng.toFixed(3));
+            $("#centerLatitude").val(homemarker.getLatLng().lat.toFixed(5));
+             $("#centerLongitude").val(homemarker.getLatLng().lng.toFixed(5));
              
         }
 
