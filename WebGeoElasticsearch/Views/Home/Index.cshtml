@@ -59,13 +59,19 @@
 
         //var marker = L.marker([46.94792, 7.44461]).addTo(map);
 
+        function onMapClick(e) {
+            alert("You clicked the map at " + e.latlng);
+        }
+
+        map.on('click', onMapClick);
+
         ///////////////
 
         var modelData = $.parseJSON($("#mapdata").val());
         var first = true;
         $.each(modelData, function(entryIndex, entry) {
 
-            var titleString = "<a href=\"" + entry.Details + "\">" + entry.Name + "</a>";
+            var titleString = entry.Name + "\n" + entry.Details;
 
             //alert("Lat: " + entry.DetailsCoordinates.lat + "Lon: " + entry.DetailsCoordinates.lon);
             if (first) {
@@ -76,9 +82,10 @@
 
                 var marker = L.marker(
                     [entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat],
-                    {icon: yourPositionIcon},
-                    {title: titleString}
-                ).addTo(map);
+                    {icon: yourPositionIcon}
+                ).bindPopup(titleString).addTo(map);
+
+                marker;
 
                 // var marker = new google.maps.Marker({
                 //     position: new google.maps.LatLng(array[1], array[0]),
@@ -88,11 +95,11 @@
 
                 first = false;
             } else {
-                var marker = L.marker([entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat]).addTo(map);
+                var marker = L.marker([entry.DetailsCoordinates.lon, entry.DetailsCoordinates.lat])
+                    .bindPopup(titleString)
+                    .addTo(map);
             }
         });
-
-        alert('homemarker: ' + $("#centerLatitude").val() + ' Current Lng: ' + $("#centerLongitude").val());
 
         var ortIcon = L.icon({
             iconUrl: 'ort.png',
