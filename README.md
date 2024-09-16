@@ -1,6 +1,13 @@
 # Web Geo Elasticsearch
 
+Implement a Geo Location search using .NET Aspire, Elasticsearch and ASP.NET Core
+
 ![Overview](https://github.com/damienbod/WebGeoElasticsearch/blob/main/images/aspire-elastic.png)
+
+Map display
+
+![Overview](https://github.com/damienbod/WebGeoElasticsearch/blob/main/images/elastic_geo_search_01.png)
+
 
 ## History
 
