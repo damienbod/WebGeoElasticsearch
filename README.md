@@ -1,4 +1,4 @@
-# Web Geo Elasticsearch
+# Web search using Elasticsearch Geo-distance query
 
 Implement a Geo distance search using .NET Aspire, Elasticsearch and ASP.NET Core
 
@@ -11,7 +11,7 @@ Map display
 
 ## History
 
-- 2024-09-15 Initial version with Geo distance query search
+- 2024-09-15 Initial version with Web search using Elasticsearch Geo-distance query
 
 ## Links
 
