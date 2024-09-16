@@ -11,7 +11,7 @@ Map display
 
 ## History
 
-- 2024-09-15 Initial version with Geo search
+- 2024-09-15 Initial version with Geo distance query search
 
 ## Links
 
