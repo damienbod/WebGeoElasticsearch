@@ -22,3 +22,5 @@ https://leafletjs.com/
 https://www.elastic.co/guide/en/elasticsearch/reference/current/explicit-mapping.html
 
 https://damienbod.com/2024/09/16/using-elasticsearch-with-net-aspire/
+
+https://learn.microsoft.com/en-us/dotnet/aspire/
