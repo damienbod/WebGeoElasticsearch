@@ -4,10 +4,15 @@
 
 ![Overview](https://github.com/damienbod/WebGeoElasticsearch/blob/main/images/aspire-elastic.png)
 
-
 Map display
 
 ![Overview](https://github.com/damienbod/WebGeoElasticsearch/blob/main/images/elastic_geo_search_01.png)
+
+## Index 
+
+To index in elasticsearch on a new search server, use /home/ReIndex once the applications are running.
+
+## Notes
 
 
 ## History
