@@ -9,10 +9,12 @@
     <UserSecretsId>7f94becc-49c7-4622-a15f-2290a31021e6</UserSecretsId>
   </PropertyGroup>
 
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0-rc.1.24511.1" />
+  
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.1" />
-    <PackageReference Include="Aspire.Hosting.Elasticsearch" Version="8.2.0-preview.1.24428.5" />
-    <PackageReference Include="System.IO.Hashing" Version="8.0.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0-rc.1.24511.1" />
+    <PackageReference Include="Aspire.Hosting.Elasticsearch" Version="9.0.0-preview.4.24511.1" />
+    <PackageReference Include="System.IO.Hashing" Version="9.0.0-rc.2.24473.5" />
   </ItemGroup>
 
   <ItemGroup>

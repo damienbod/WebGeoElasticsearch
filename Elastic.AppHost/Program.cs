@@ -9,5 +9,6 @@ var elasticsearch = builder.AddElasticsearch("elasticsearch", password: password
 builder.AddProject<Projects.WebGeoElasticsearch>("webgeoelasticsearch")
     .WithExternalHttpEndpoints()
     .WithReference(elasticsearch);
+    //.WaitFor(elasticsearch);
 
 builder.Build().Run();
