@@ -17,6 +17,7 @@ To index in elasticsearch on a new search server, use /home/ReIndex once the app
 
 ## History
 
+- 2025-01-01 Updated packages
 - 2024-10-20 Updated Aspire
 - 2024-10-12 Update packages
 - 2024-09-15 Initial version with Web search using Elasticsearch Geo-distance query
